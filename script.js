@@ -23,7 +23,8 @@ const downloadBtn = document.getElementById("downloadBtn");
 let selectedFile = null;
 let compressedBlob = null;
 
-browseBtn.addEventListener("click", () => {
+browseBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     imageInput.click();
 });
 
@@ -263,4 +264,6 @@ imageInput.removeAttribute("multiple");
 qualityValue.textContent = qualitySlider.value + "%";
 
 // Console message
-console.log("Matrix Image Compressor Ready");
+console.log("Matrix Image Compressor Ready");dropArea.addEventListener("click", () => {
+    imageInput.click();
+});
