@@ -145,11 +145,15 @@ function compressImage() {
 
         const quality = qualitySlider.value / 100;
 
-        let mime = "image/jpeg";
+        let mime = selectedFile.type;
 
-        if (selectedFile.type === "image/webp") {
-            mime = "image/webp";
-        }
+if (
+    mime !== "image/jpeg" &&
+    mime !== "image/png" &&
+    mime !== "image/webp"
+) {
+    mime = "image/jpeg";
+}
 
         canvas.toBlob(function(blob) {
 
@@ -175,8 +179,16 @@ function compressImage() {
 
             downloadBtn.href = url;
 
-            downloadBtn.download =
-                "compressed_" + selectedFile.name;
+            let extension = "jpg";
+
+if (mime === "image/png") {
+    extension = "png";
+} else if (mime === "image/webp") {
+    extension = "webp";
+}
+
+downloadBtn.download = "compressed." + extension;
+                
 
             downloadBtn.style.display =
                 "inline-block";
@@ -264,6 +276,4 @@ imageInput.removeAttribute("multiple");
 qualityValue.textContent = qualitySlider.value + "%";
 
 // Console message
-console.log("Matrix Image Compressor Ready");dropArea.addEventListener("click", () => {
-    imageInput.click();
-});
+console.log("Matrix Image Compressor Ready");
